@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carrito de Compra con Bootstrap</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+  <div class="container mt-5">
+    <h1>Carrito de Compra</h1>
+    <div class="row">
+      <div class="col-md-8">
+        <div class="card mb-3">
+          <div class="card-body">
+            <h5 class="card-title">Producto 1</h5>
+            <p class="card-text">Descripción del producto 1.</p>
+            <p class="card-text">Precio: $10</p>
+            <button class="btn btn-primary add-to-cart" data-name="Producto 1" data-price="10">Agregar al Carrito</button>
+          </div>
+        </div>
+        <!-- Agregar más productos aquí -->
+      </div>
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-header">
+            Carrito
+          </div>
+          <ul class="list-group list-group-flush cart-items">
+            <!-- Los productos en el carrito se mostrarán aquí -->
+          </ul>
+          <div class="card-footer">
+            <p class="cart-total">Total: $0</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      const cartItemsList = $(".cart-items");
+      const cartTotal = $(".cart-total");
+
+      let cart = [];
+
+      $(".add-to-cart").click(function() {
+        const name = $(this).data("name");
+        const price = parseFloat($(this).data("price"));
+        cart.push({ name, price });
+        updateCart();
+      });
+
+      function updateCart() {
+        cartItemsList.empty();
+        let total = 0;
+
+        cart.forEach(item => {
+          cartItemsList.append(`<li>${item.name} - $${item.price}</li>`);
+          total += item.price;
+        });
+
+        cartTotal.text(`Total: $${total.toFixed(2)}`);
+      }
+    });
+  </script>
+</body>
+</html>
